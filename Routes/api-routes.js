@@ -3,13 +3,14 @@ const { v4: uuidv4 } = require('uuid');
 const fs = require ("fs");
 
 // Defines the GET request to this routes end point '/api/notes'
-router.get('/api/notes', async (req, res) => {
-  const dbJson = await JSON.parse(fs.readFileSync("db/db.json","utf8"));
+router.get('/notes',  (req, res) => {
+  const dbJson = JSON.parse(fs.readFileSync("db/db.json","utf8"));
   res.json(dbJson);
+  
 });
 
 // Defines the POST request to this routes end point '/api/notes'
-router.post('/api/notes', (req, res) => {
+router.post('/notes', (req, res) => {
   const dbJson = JSON.parse(fs.readFileSync("db/db.json","utf8"));
   const newFeedback = {
     title: req.body.title,
@@ -21,7 +22,7 @@ router.post('/api/notes', (req, res) => {
   res.json(dbJson);
 });
 
-router.delete('/api/notes/:id', (req, res) => {
+router.delete('/notes/:id', (req, res) => {
   let data = fs.readFileSync("db/db.json", "utf8");
   const dataJSON =  JSON.parse(data);
   const newNotes = dataJSON.filter((note) => { 
