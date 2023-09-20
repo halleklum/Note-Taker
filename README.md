@@ -39,3 +39,8 @@ halleklum
     
 ## E-mail
 halleklum@gmail.com
+
+## Image
+<img width="723" alt="Screen Shot 2023-09-20 at 2 30 51 PM" src="https://github.com/halleklum/Note-Taker/assets/128300265/7ecaf762-5dfd-4b4c-89e7-88fcb6204b5d">
+
+
