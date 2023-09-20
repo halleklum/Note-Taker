@@ -1,33 +1,34 @@
 const router = require('express').Router();
+const { v4: uuidv4 } = require('uuid');
 const fs = require ("fs");
 
-// Defines get request to /api/notes
+// Defines the GET request to this routes end point '/api/notes'
 router.get('/api/notes', async (req, res) => {
-    const dbJson = await JSON.parse(fs.readFileSync("db/db.json", "utf8")); 
-    res.json(dbJson);
-})
+  const dbJson = await JSON.parse(fs.readFileSync("db/db.json","utf8"));
+  res.json(dbJson);
+});
 
-// Defines post request to /api/notes
+// Defines the POST request to this routes end point '/api/notes'
 router.post('/api/notes', (req, res) => {
-    const dbJson = JSON.parse(fs.readFileSync("db/db.json", "utf8"));
-    const newNote = {
-        title: req.body.title,
-        text: req.body.text,
-    };
-    dbJson.push(newNote);
-    fs.writeFileSync("db/db.json", JSON.stringify(dbJson));
-    res.json(dbJson);
+  const dbJson = JSON.parse(fs.readFileSync("db/db.json","utf8"));
+  const newFeedback = {
+    title: req.body.title,
+    text: req.body.text,
+    id: uuidv4(),
+  };
+  dbJson.push(newFeedback);
+  fs.writeFileSync("db/db.json",JSON.stringify(dbJson));
+  res.json(dbJson);
 });
 
 router.delete('/api/notes/:id', (req, res) => {
-    let data = fs.readFileSync("db/db.json", "utf8");
-    const dataJSON =  JSON.parse(data);
-    const newNote = dataJSON.filter((note) => { 
-      return note.id !== req.params.id;
-    });
-    fs.writeFileSync("db/db.json",JSON.stringify(newNote));
-    res.json("Note Deleted");
+  let data = fs.readFileSync("db/db.json", "utf8");
+  const dataJSON =  JSON.parse(data);
+  const newNotes = dataJSON.filter((note) => { 
+    return note.id !== req.params.id;
   });
+  fs.writeFileSync("db/db.json",JSON.stringify(newNotes));
+  res.json("Note deleted.");
+});
 
-  
-module.exports = router
+module.exports = router; 
